@@ -5,13 +5,16 @@ import Logo from './components/Logo/Logo'
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
 import Rank from './components/Rank/Rank'
 import FacialRecognition from './components/FacialRecognition/FacialRecognition'
+import Signin from './components/SignIn/Signin'
+import Register from './components/Register/Register'
 
 
 const App = () => {
 
   const [imageURL, setImageURL] = useState('')
   const [showImage, setShowImage] = useState(false); // keep track whether user has clicked detect button or not
-  const [box, setBox]= useState({})
+  const [box, setBox] = useState({})
+  const [route, setRoute] = useState('signin')
 
   
   const calculateFaceLocation = (data) => {
@@ -89,14 +92,27 @@ const App = () => {
   //   }
   // }
 
-    return (
-      <>
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm handleInputChange={handleInputChange} handleAPI={handleAPI} />
-        <FacialRecognition box={box} imageURL={imageURL} showImage={showImage} /> 
-      </>
+  const onRouteChange = (route) => {
+    setRoute(route)
+  }
+
+  return (
+    <>
+      <Navigation onRouteChange={onRouteChange} />
+      {route === 'home' ?  
+        <>
+          <Logo />
+          <Rank />
+          <ImageLinkForm handleInputChange={handleInputChange} handleAPI={handleAPI} />
+          <FacialRecognition box={box} imageURL={imageURL} showImage={showImage} />
+        </>
+        : (
+          route === 'signin' 
+            ? <Signin onRouteChange={onRouteChange} />
+            : <Register onRouteChange={onRouteChange} />
+        )
+      }</>
+        
     )
   
 }
