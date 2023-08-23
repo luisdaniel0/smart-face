@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <>
       <Tilt className='tilt' tiltReverse={true} style={{ height: '100px',width:'100px' }}>
-        <img style={{paddingLeft: '30px', paddingTop: '20px'}} alt='logo' src={brain}></img>
+        <img className='logoImg' style={{paddingLeft: '30px', paddingTop: '20px'}} alt='logo' src={brain}></img>
     </Tilt>
     </>
   )

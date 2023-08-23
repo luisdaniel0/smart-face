@@ -11,8 +11,27 @@ const App = () => {
 
   const [imageURL, setImageURL] = useState('')
   const [showImage, setShowImage] = useState(false); // keep track whether user has clicked detect button or not
+  const [box, setBox]= useState({})
 
+  
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
+    const image = document.getElementById('inputimage')
+    console.log(image);
+    const width = image.width
+    const height = image.height
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height)
+    }
+  }
 
+  const displayFaceBox = (box) => {
+    console.log(box)
+    setBox(box)
+  }
 
   const handleAPI = () => {
     const PAT = 'e198bbcd48cc4618a986e07fd515a950';
@@ -50,7 +69,7 @@ const App = () => {
 
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
       .then(response => response.json())
-      .then(result => console.log('it works!', result.outputs[0].data.regions[0].region_info.bounding_box))
+      .then(result => displayFaceBox(calculateFaceLocation(result)))
       .catch(error => console.log('errorrrrr', error));
     setShowImage(true); // show the image when detect button is clicked
     
@@ -76,7 +95,7 @@ const App = () => {
         <Logo />
         <Rank />
         <ImageLinkForm handleInputChange={handleInputChange} handleAPI={handleAPI} />
-        <FacialRecognition imageURL={imageURL} showImage={showImage} /> 
+        <FacialRecognition box={box} imageURL={imageURL} showImage={showImage} /> 
       </>
     )
   
