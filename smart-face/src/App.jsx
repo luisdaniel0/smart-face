@@ -13,8 +13,9 @@ const App = () => {
 
   const [imageURL, setImageURL] = useState('')
   const [showImage, setShowImage] = useState(false); // keep track whether user has clicked detect button or not
-  const [box, setBox] = useState({})
-  const [route, setRoute] = useState('signin')
+  const [box, setBox] = useState({});
+  const [route, setRoute] = useState('signin');
+  const [isSignedin, setIsSignedIn] = useState(false);
 
   
   const calculateFaceLocation = (data) => {
@@ -93,12 +94,17 @@ const App = () => {
   // }
 
   const onRouteChange = (route) => {
+    if (route === 'signout') {
+      setIsSignedIn(false)
+    } else if (route === 'home') {
+      setIsSignedIn(true);
+    }
     setRoute(route)
   }
 
   return (
     <>
-      <Navigation onRouteChange={onRouteChange} />
+      <Navigation isSignedin={isSignedin} onRouteChange={onRouteChange} />
       {route === 'home' ?  
         <>
           <Logo />
