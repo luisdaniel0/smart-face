@@ -21,7 +21,6 @@ const App = () => {
   const calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.getElementById('inputimage')
-    console.log(image);
     const width = image.width
     const height = image.height
     return {
@@ -33,7 +32,6 @@ const App = () => {
   }
 
   const displayFaceBox = (box) => {
-    console.log(box)
     setBox(box)
   }
 
@@ -87,11 +85,6 @@ const App = () => {
     
   }
 
-  // const isFormEmpty = () => {
-  //   if (imageURL.length === 0) {
-  //     return { display: 'none' };
-  //   }
-  // }
 
   const onRouteChange = (route) => {
     if (route === 'signout') {
