@@ -119,13 +119,13 @@ const App = () => {
       {route === 'home' ?  
         <>
           <Logo />
-          <Rank />
+          <Rank name={user.name} entries={user.entries} />
           <ImageLinkForm handleInputChange={handleInputChange} handleAPI={handleAPI} />
           <FacialRecognition box={box} imageURL={imageURL} showImage={showImage} />
         </>
         : (
           route === 'signin' 
-            ? <Signin onRouteChange={onRouteChange} />
+            ? <Signin onRouteChange={onRouteChange} loadUser={loadUser}/>
             : <Register onRouteChange={onRouteChange} loadUser={loadUser} />
         )
       }</>
