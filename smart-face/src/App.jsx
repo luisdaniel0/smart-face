@@ -87,10 +87,33 @@ const App = () => {
     };
 
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
-      .then(response => response.json())
-      .then(result => displayFaceBox(calculateFaceLocation(result)))
-      .catch(error => console.log('errorrrrr', error));
-    setShowImage(true); // show the image when detect button is clicked
+  .then(response => response.json())
+  .then(result => {
+    displayFaceBox(calculateFaceLocation(result));
+
+    // Nested .then block for the fetch and user update
+    return fetch("http://localhost:3000/image", {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: user.id
+      })
+    })
+    .then(response => response.json()) // Assuming the response contains the updated count
+    .then(count => {
+      setUser(prevUser => ({
+        ...prevUser,
+        entries: count
+      }));
+    });
+  })
+  .then(() => {
+    setShowImage(true);
+  })
+  .catch(error => {
+    // Handle any errors that might occur during the fetch
+    console.error('Error:', error);
+  });
     
     
   };
