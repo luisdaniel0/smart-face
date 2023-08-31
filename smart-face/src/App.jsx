@@ -35,7 +35,8 @@ const App = () => {
     })
   }
   
-  const calculateFaceLocation = (data) => {
+  //grabbing the boundingbox coordinates from the api call 
+  const calculateFaceLocation = (data) => { 
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.getElementById('inputimage')
     const width = image.width
@@ -48,6 +49,7 @@ const App = () => {
     }
   }
 
+  //box state where the coordinates for the face go
   const displayFaceBox = (box) => {
     setBox(box)
   }
