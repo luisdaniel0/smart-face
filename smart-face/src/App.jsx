@@ -7,6 +7,9 @@ import Rank from './components/Rank/Rank'
 import FacialRecognition from './components/FacialRecognition/FacialRecognition'
 import Signin from './components/SignIn/Signin'
 import Register from './components/Register/Register'
+import { useCallback } from "react";
+import ParticlesBg from 'particles-bg'
+
 
 
 const App = () => {
@@ -38,18 +41,20 @@ const App = () => {
   //grabbing the boundingbox coordinates from the api call 
   const calculateFaceLocation = (data) => { 
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
-    const image = document.getElementById('inputimage')
+    const image = document.getElementById('inputImage')
+    console.log(image)
     const width = image.width
     const height = image.height
+    console.log(width)
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
       rightCol: width - (clarifaiFace.right_col * width),
       bottomRow: height - (clarifaiFace.bottom_row * height)
-    }
+    } 
   }
 
-  //box state where the coordinates for the face go
+  //function for box state where the coordinates for the face go
   const displayFaceBox = (box) => {
     setBox(box)
   }
@@ -140,6 +145,7 @@ const App = () => {
 
   return (
     <>
+      <ParticlesBg type="circle" bg={true} />
       <Navigation isSignedin={isSignedin} onRouteChange={onRouteChange} />
       {route === 'home' ?  
         <>

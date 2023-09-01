@@ -3,18 +3,26 @@ import './FacialRecognition.css'
 
 const FacialRecognition = ({ imageURL, showImage, box }) => {
 
+  const isFormEmpty = () => {
+    if (imageURL.length <= 30) {
+      return {display:'none'}
+    }
+  }
   return (
   <>
     <div className='faceRecognition center'>
       <div className='center ma'>
-        <div className='absolute mt2'>
-          {showImage && (
-              <img id='inputimage'
-                alt='img'
+          <div className='absolute mt2'>
+          {imageURL.length >30 && (
+              <img
+                id="inputImage"
+                alt="img"
                 src={imageURL}
-                width='500px'
-                height='auto'/>
-          )} 
+                width="500px"
+                height="auto"
+              />
+            )}
+          
           
           <div className='bounding-box' style={{
             top: box.topRow,

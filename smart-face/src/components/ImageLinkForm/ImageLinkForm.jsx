@@ -1,13 +1,16 @@
 import React from 'react'
 import "./ImageLinkForm.css"
 
-const ImageLinkForm = ({ handleInputChange, handleAPI }) => {
+const ImageLinkForm = ({ handleInputChange, handleAPI, isLoading }) => {
 
 
   return (
     <div>
       <p className='f3'>
-        {`This Magic Brain will detect faces in your pictures, give it a try`}
+        {`This Magic Brain will detect faces in your pictures, give it a try! Enter a Link below`}
+      </p>
+      <p className='f3'>
+        {'Click the button to detect a face in your image!'}
       </p>
 
       <div
