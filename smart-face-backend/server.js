@@ -6,14 +6,14 @@ import bcrypt from "bcryptjs"
 const database = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
+      host : 'localhost',
       user : '',
       password : '',
       database : 'smart-brain'
     }
-  });
-
-
+  }); 
+  
+       
 const app = express();
 
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use(cors())
 
 
 app.get("/", (req, res) => {
-  res.send(db.users);
+  res.send("success");
 })
 
 app.post("/signin", (req, res) => {
@@ -49,7 +49,7 @@ app.post('/register', (req, res) => {
     trx.insert({
       hash: hash,
       email: email
-    })
+    }) 
     
       .into('login')
       .returning('email')

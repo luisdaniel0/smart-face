@@ -7,7 +7,6 @@ import Rank from './components/Rank/Rank'
 import FacialRecognition from './components/FacialRecognition/FacialRecognition'
 import Signin from './components/SignIn/Signin'
 import Register from './components/Register/Register'
-import { useCallback } from "react";
 import ParticlesBg from 'particles-bg'
 
 
