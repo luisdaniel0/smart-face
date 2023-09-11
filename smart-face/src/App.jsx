@@ -41,10 +41,8 @@ const App = () => {
   const calculateFaceLocation = (data) => { 
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.getElementById('inputImage')
-    console.log(image)
     const width = image.width
     const height = image.height
-    console.log(width)
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
@@ -92,9 +90,9 @@ const App = () => {
       body: raw
     };
 
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
-  .then(response => response.json())
-  .then(result => {
+  fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+    .then(response => response.json())
+    .then(result => {
     displayFaceBox(calculateFaceLocation(result));
 
     // Nested .then block for the fetch and user update
